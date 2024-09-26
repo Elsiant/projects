@@ -1,0 +1,1 @@
+from common.types.point import Point

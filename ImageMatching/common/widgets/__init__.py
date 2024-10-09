@@ -1,1 +1,1 @@
-from common.widgets.image_matching_dialog import ImageMatcingDialog
+from common.widgets.image_matching_dialog import ImageMatchingDialog

@@ -9,23 +9,7 @@ import cv2
 
 from image_matching.find_image_matching import template_matching_location, keypoint_matching_location
 
-class ImagePreviewDialog(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("Image Preview")
-        self.setFixedSize(400, 400)
-
-        self.image_label = QLabel(self)
-        self.image_label.setScaledContents(True)
-        self.image_label.setFixedSize(380, 380)
-
-        layout = QVBoxLayout()
-        layout.addWidget(self.image_label)
-        self.setLayout(layout)
-
-    def set_image(self, image_path):
-        pixmap = QPixmap(image_path)
-        self.image_label.setPixmap(pixmap)
+from common.widgets.image_preview_dialog import ImagePreviewDialog
 
 class ImageMatchingDialog(QWidget):
     def __init__(self):
@@ -40,7 +24,7 @@ class ImageMatchingDialog(QWidget):
 
         # 윗쪽 매칭 버튼
         self.template_matching_button = QPushButton("Matching Image")
-        self.template_matching_button.clicked.connect(self.template_matching)
+        self.template_matching_button.clicked.connect(lambda : self.find_matching_point("template"))
         layout.addWidget(self.template_matching_button)
 
         bottom_layout = QHBoxLayout(self)
@@ -74,7 +58,7 @@ class ImageMatchingDialog(QWidget):
             return
         
         pixmap = QPixmap(file_name)
-        image = cv2.imread(self._file_path, cv2.IMREAD_UNCHANGED)
+        image = cv2.imread(file_name, cv2.IMREAD_UNCHANGED)
 
         if side == "left":
             self.search_image = image
@@ -86,17 +70,26 @@ class ImageMatchingDialog(QWidget):
             self.right_preview.setPixmap(pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio))
 
 
-    def template_matching(self):
+    def find_matching_point(self, matching_mode: str) -> None:
         if self.source_image is None or self.search_image is None :
             print("image not found")
             return
         
-        matching_point = template_matching_location(self.search_image, self.source_image)
+        matching_point = None
+        if matching_mode == "template":
+            matching_point = template_matching_location(self.search_image, self.source_image)
+        elif matching_mode == "keypoint":
+            matching_point = keypoint_matching_location(self.search_image, self.source_image)
+        else:
+            print("invalid matching mode")
+            return
+
         if matching_point is None:
             print("matching point is None")
             return
         
+        preive_image = cv2.circle(self.source_image, matching_point, 100, (0, 0, 255), 5)
+        
         dialog = ImagePreviewDialog(self)
-        dialog.set_image(self.source_image)
+        dialog.set_image(preive_image)
         dialog.show()
-        return

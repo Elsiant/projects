@@ -1,7 +1,11 @@
+"""
+이미지 매칭 테스트용 Dialog
+Source Image에서 Search Image를 찾아 중심을 표시해주는 기능
+"""
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout,
-    QPushButton, QLabel, QFileDialog, QDialog
+    QPushButton, QLabel, QFileDialog
 )
 from PyQt6.QtGui import QPixmap
 
@@ -34,22 +38,22 @@ class ImageMatchingDialog(QWidget):
         bottom_layout = QHBoxLayout(self)
         # 왼쪽 레이아웃
         left_layout = QVBoxLayout()
-        self.left_button = QPushButton("Select Left Image")
+        self.left_button = QPushButton("Select Search Image")
         self.left_button.clicked.connect(lambda: self.select_image("left"))
         left_layout.addWidget(self.left_button)
 
-        self.left_preview = QLabel("Left Image Preview")
+        self.left_preview = QLabel("Search Image Preview")
         left_layout.addWidget(self.left_preview)
 
         bottom_layout.addLayout(left_layout)
 
         # 오른쪽 레이아웃
         right_layout = QVBoxLayout()
-        self.right_button = QPushButton("Select Right Image")
+        self.right_button = QPushButton("Select Source Image")
         self.right_button.clicked.connect(lambda: self.select_image("right"))
         right_layout.addWidget(self.right_button)
 
-        self.right_preview = QLabel("Right Image Preview")
+        self.right_preview = QLabel("Source Image Preview")
         right_layout.addWidget(self.right_preview)
 
         bottom_layout.addLayout(right_layout)
@@ -74,6 +78,7 @@ class ImageMatchingDialog(QWidget):
             self.right_preview.setPixmap(pixmap.scaled(200, 200, Qt.AspectRatioMode.KeepAspectRatio))
 
 
+    # 이미지 매칭 뒤 찾은 이미지의 중심점을 원으로 표시해준다.
     def find_matching_point(self, matching_mode: str) -> None:
         if self.source_image is None or self.search_image is None :
             print("image not found")

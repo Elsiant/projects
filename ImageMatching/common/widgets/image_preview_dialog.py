@@ -1,3 +1,6 @@
+"""
+셋팅된 이미지를 미리보기 해주는 Dialog
+"""
 from typing import Optional
 from PyQt6.QtWidgets import (
      QWidget, QVBoxLayout, QLabel, QDialog,

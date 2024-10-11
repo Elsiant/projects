@@ -1,5 +1,5 @@
 """
-find_Image_location.py
+이미지 매칭을 통해 중심점을 찾는다.
 """
 import time
 from typing import Callable, Optional

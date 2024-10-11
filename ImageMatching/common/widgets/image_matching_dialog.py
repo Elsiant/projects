@@ -23,9 +23,13 @@ class ImageMatchingDialog(QWidget):
         layout = QVBoxLayout(self)
 
         # 윗쪽 매칭 버튼
-        self.template_matching_button = QPushButton("Matching Image")
+        self.template_matching_button = QPushButton("Template Matching")
         self.template_matching_button.clicked.connect(lambda : self.find_matching_point("template"))
         layout.addWidget(self.template_matching_button)
+
+        self.keypoint_matching_button = QPushButton("Keypoint Matching")
+        self.keypoint_matching_button.clicked.connect(lambda : self.find_matching_point("keypoint"))
+        layout.addWidget(self.keypoint_matching_button)
 
         bottom_layout = QHBoxLayout(self)
         # 왼쪽 레이아웃

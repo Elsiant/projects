@@ -2,6 +2,7 @@
 셋팅된 이미지를 미리보기 해주는 Dialog
 """
 from typing import Optional
+import cv2
 from PyQt6.QtWidgets import (
      QWidget, QVBoxLayout, QLabel, QDialog,
 )
@@ -22,7 +23,7 @@ class ImagePreviewDialog(QDialog):
         self.setLayout(layout)
 
 
-    def set_image(self, image) -> None:
+    def set_image(self, image :cv2.Mat) -> None:
         height, width, _ = image.shape
         bytesPerLine = 3 * width
         qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format.Format_BGR888)

@@ -60,7 +60,8 @@ class ImageMatchingDialog(QWidget):
 
         layout.addLayout(bottom_layout)
 
-    def select_image(self, side):
+    # 이미지 매칭에 사용될 파일을 선택하여 셋팅한다.
+    def select_image(self, side: str):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select an Image", "", "Images (*.png *.jpg *.jpeg *.bmp)")
         if not file_name:
             return

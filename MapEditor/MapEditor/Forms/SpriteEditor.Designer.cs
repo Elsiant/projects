@@ -36,7 +36,6 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.LeftPanel = new System.Windows.Forms.Panel();
             this.RightPanel = new System.Windows.Forms.Panel();
-            this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,9 +129,7 @@
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Panel LeftPanel;
         private System.Windows.Forms.Panel RightPanel;
-        private System.Windows.Forms.ColorDialog colorDialog2;
     }
 }

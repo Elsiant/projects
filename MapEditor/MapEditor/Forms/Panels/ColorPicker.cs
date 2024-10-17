@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MapEditor.Forms.Panels;
 
-namespace MapEditor.Forms
+namespace MapEditor.Forms.Panels
 {
-    public partial class SpriteEditor : Form
+    public partial class ColorPicker : UserControl
     {
-        public SpriteEditor()
+        public ColorPicker()
         {
             InitializeComponent();
-            
-            RightPanel.Controls.Add(new ColorPickerPanel());
         }
     }
 }

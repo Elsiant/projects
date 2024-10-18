@@ -13,11 +13,26 @@ namespace MapEditor.Forms
 {
     public partial class SpriteEditor : Form
     {
+        private Color _currentColor = Color.Transparent;
+
         public SpriteEditor()
         {
             InitializeComponent();
-            
-            RightPanel.Controls.Add(new ColorPickerPanel());
+
+            var rightPanel = new ColorPickerPanel();
+            rightPanel.Dock = DockStyle.Fill;
+            rightPanel.ColorSelected += RightPanel_ColorSelected;
+            RightPanel.Controls.Add(rightPanel);
+        }
+
+        private void RightPanel_ColorSelected(object sender, Color e)
+        {
+            if (_currentColor == e)
+            {
+                return;
+            }
+
+            _currentColor = e;
         }
     }
 }

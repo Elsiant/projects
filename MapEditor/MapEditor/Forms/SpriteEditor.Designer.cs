@@ -82,24 +82,24 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 28);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(465, 422);
+            this.splitter1.Size = new System.Drawing.Size(459, 422);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
             // LeftPanel
             // 
             this.LeftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LeftPanel.Location = new System.Drawing.Point(465, 28);
+            this.LeftPanel.Location = new System.Drawing.Point(459, 28);
             this.LeftPanel.Name = "LeftPanel";
-            this.LeftPanel.Size = new System.Drawing.Size(335, 422);
+            this.LeftPanel.Size = new System.Drawing.Size(341, 422);
             this.LeftPanel.TabIndex = 2;
             // 
             // RightPanel
             // 
             this.RightPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RightPanel.Location = new System.Drawing.Point(465, 28);
+            this.RightPanel.Location = new System.Drawing.Point(459, 28);
             this.RightPanel.Name = "RightPanel";
-            this.RightPanel.Size = new System.Drawing.Size(335, 422);
+            this.RightPanel.Size = new System.Drawing.Size(341, 422);
             this.RightPanel.TabIndex = 3;
             // 
             // SpriteEditor

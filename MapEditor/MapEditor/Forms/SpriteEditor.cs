@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using MapEditor.Forms.Panels;
 
@@ -38,8 +31,6 @@ namespace MapEditor.Forms
             rightPanel.Dock = DockStyle.Fill;
             rightPanel.ColorSelected += RightPanel_ColorSelected;
             splitContainer.Panel2.Controls.Add(rightPanel);
-
-            
         }
 
         private void RightPanel_ColorSelected(object sender, Color e)

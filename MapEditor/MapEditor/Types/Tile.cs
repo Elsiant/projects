@@ -4,7 +4,7 @@ namespace MapEditor.Types
 {
     class Tile
     {
-        public static readonly int TILE_SIZE = 32;
+        public static readonly int TILE_SIZE = 16;
         public int _x;
         public int _y;
 

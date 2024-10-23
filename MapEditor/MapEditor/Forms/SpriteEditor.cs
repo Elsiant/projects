@@ -20,7 +20,6 @@ namespace MapEditor.Forms
         {
             // 왼쪽 패널 그리기 화면
             _drawingPanel = new DrawingPanel();
-            _drawingPanel.Dock = DockStyle.Fill;
             _drawingPanel.MouseClicked += LeftPanel_Clicked;
             splitContainer.Panel1.Controls.Add(_drawingPanel);
 
@@ -34,7 +33,7 @@ namespace MapEditor.Forms
         private void LeftPanel_Clicked(object sender, Point e)
         {
             var drawingPanel = sender as DrawingPanel;
-            drawingPanel.SetTileColor(e, _currentColor);
+            drawingPanel.SetDotColor(e, _currentColor);
         }
 
         private void RightPanel_ColorSelected(object sender, Color e)

@@ -8,13 +8,21 @@ namespace MapEditor.Forms.Panels
 {
     class DrawingPanel : Panel
     {
+        public static readonly int GRID_GAP = 32;
         public EventHandler<Point> MouseClicked;
         private int _scale = 1;
+
+        private int _width = Tile.TILE_SIZE;
+        private int _height = Tile.TILE_SIZE;
+
         private Point _mousePoint = new Point();
-        private Dictionary<Point, Color> _tilesColor;
+        private Color[,] _dotColors;
 
         public DrawingPanel()
         {
+            this.Width = GRID_GAP * Tile.TILE_SIZE;
+            this.Height = GRID_GAP * Tile.TILE_SIZE;
+
             InitializeDrawingPanel();
 
             this.DoubleBuffered = true;
@@ -22,48 +30,60 @@ namespace MapEditor.Forms.Panels
             this.MouseMove += DrawingPanel_MouseMove;
             this.MouseClick += DrawingPanel_MouseClick;
             this.Paint += DrawingPanel_Paint;
+
+            _dotColors = new Color[_width, _height];
         }
 
-        public void SetTileColor(Point point, Color color)
+        public void SetDotColor(Point point, Color color)
         {
-            foreach (var tileColor in _tilesColor)
-            {
-                if (tileColor.Key.Equals(point))
-                {
-                    _tilesColor.Add(tileColor.Key, color);
-                    return;
-                }
-            }
+            _dotColors[point.X, point.Y] = color;
 
-            _tilesColor.Add(point, color);
+            this.Refresh();
         }
 
         private void DrawingPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            MouseClicked.Invoke(this, new Point(e.X / Tile.TILE_SIZE, e.Y / Tile.TILE_SIZE));
+            int gridSize = GRID_GAP * _scale;
+            MouseClicked.Invoke(this, new Point(e.X / gridSize, e.Y / gridSize));
         }
 
         private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            Point point = new Point(e.X / Tile.TILE_SIZE, e.Y / Tile.TILE_SIZE);
-            if (point.Equals(_mousePoint))
-            {
-                return;
-            }
-            _mousePoint = point;
+            int gridSize = GRID_GAP * _scale;
+            _mousePoint = new Point(e.X / gridSize, e.Y / gridSize);
 
             this.Refresh();
         }
 
         private void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
-            int gridSize = Tile.TILE_SIZE * _scale;
+            int gridSize = GRID_GAP * _scale;
  
             Graphics g = e.Graphics;
             Pen grayPen = new Pen(Color.LightGray);
             Pen blackPen = new Pen(Color.Black);
-
+            
             // 타일 그리기
+            for (int i = 0; i < _width; i++)
+            {
+                for(int j = 0; j < _height; j++)
+                {
+                    if (_dotColors[i, j] == Color.Empty)
+                    {
+                        continue;
+                    }
+
+                    using (SolidBrush solidBrush = new SolidBrush(_dotColors[i, j]))
+                    {
+                        g.FillRectangle(
+                            solidBrush, 
+                            i * gridSize, 
+                            j * gridSize,
+                            gridSize,
+                            gridSize);
+                    }
+                }
+            }
             
 
             // 그리드 선 그리기
@@ -80,10 +100,12 @@ namespace MapEditor.Forms.Panels
             // 선택한 타일 처리
 
             // 마우스 현재 타일 처리
-            var currentMouse = new Tile(_mousePoint);
-            var rect = currentMouse.GetRect();
             
-            g.DrawRectangle(blackPen, rect);
+            g.DrawRectangle(blackPen, new Rectangle(
+                _mousePoint.X * gridSize,
+                _mousePoint.Y * gridSize,
+                gridSize,
+                gridSize));
 
             grayPen.Dispose();
             blackPen.Dispose();

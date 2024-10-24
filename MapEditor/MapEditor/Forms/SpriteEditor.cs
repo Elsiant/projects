@@ -7,7 +7,7 @@ namespace MapEditor.Forms
     public partial class SpriteEditor : Form
     {
         private Color _currentColor = Color.Transparent;
-        private DrawingPanel _drawingPanel;
+        private DotDrawingPanel _drawingPanel;
 
         public SpriteEditor()
         {
@@ -19,7 +19,7 @@ namespace MapEditor.Forms
         private void InitializeForm()
         {
             // 왼쪽 패널 그리기 화면
-            _drawingPanel = new DrawingPanel();
+            _drawingPanel = new DotDrawingPanel();
             _drawingPanel.MouseClicked += LeftPanel_Clicked;
             splitContainer.Panel1.Controls.Add(_drawingPanel);
 
@@ -32,7 +32,7 @@ namespace MapEditor.Forms
 
         private void LeftPanel_Clicked(object sender, Point e)
         {
-            var drawingPanel = sender as DrawingPanel;
+            var drawingPanel = sender as DotDrawingPanel;
             drawingPanel.SetDotColor(e, _currentColor);
         }
 

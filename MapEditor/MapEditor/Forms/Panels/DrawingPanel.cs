@@ -10,36 +10,17 @@ namespace MapEditor.Forms.Panels
     {
         public static readonly int GRID_GAP = 32;
         public EventHandler<Point> MouseClicked;
-        private int _scale = 1;
+        protected int _scale = 1;
+        protected int _width;
+        protected int _height;
 
-        private int _width = Tile.TILE_SIZE;
-        private int _height = Tile.TILE_SIZE;
-
-        private Point _mousePoint = new Point();
-        private Color[,] _dotColors;
+        protected Point _mousePoint = new Point();
 
         public DrawingPanel()
         {
-            this.Width = GRID_GAP * Tile.TILE_SIZE;
-            this.Height = GRID_GAP * Tile.TILE_SIZE;
-
             InitializeDrawingPanel();
-
-            this.DoubleBuffered = true;
-            this.ResizeRedraw = true;
-            this.MouseMove += DrawingPanel_MouseMove;
-            this.MouseClick += DrawingPanel_MouseClick;
-            this.Paint += DrawingPanel_Paint;
-
-            _dotColors = new Color[_width, _height];
         }
 
-        public void SetDotColor(Point point, Color color)
-        {
-            _dotColors[point.X, point.Y] = color;
-
-            this.Refresh();
-        }
 
         private void DrawingPanel_MouseClick(object sender, MouseEventArgs e)
         {
@@ -55,7 +36,7 @@ namespace MapEditor.Forms.Panels
             this.Refresh();
         }
 
-        private void DrawingPanel_Paint(object sender, PaintEventArgs e)
+        virtual protected void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
             int gridSize = GRID_GAP * _scale;
  
@@ -63,29 +44,6 @@ namespace MapEditor.Forms.Panels
             Pen grayPen = new Pen(Color.LightGray);
             Pen blackPen = new Pen(Color.Black);
             
-            // 타일 그리기
-            for (int i = 0; i < _width; i++)
-            {
-                for(int j = 0; j < _height; j++)
-                {
-                    if (_dotColors[i, j] == Color.Empty)
-                    {
-                        continue;
-                    }
-
-                    using (SolidBrush solidBrush = new SolidBrush(_dotColors[i, j]))
-                    {
-                        g.FillRectangle(
-                            solidBrush, 
-                            i * gridSize, 
-                            j * gridSize,
-                            gridSize,
-                            gridSize);
-                    }
-                }
-            }
-            
-
             // 그리드 선 그리기
             for (int y = 0; y < this.Height; y += gridSize)
             {
@@ -116,6 +74,12 @@ namespace MapEditor.Forms.Panels
             this.BackColor = Color.White;
             this.BorderStyle = BorderStyle.FixedSingle;
             this.AutoScroll = true;
+            
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
+            this.MouseMove += DrawingPanel_MouseMove;
+            this.MouseClick += DrawingPanel_MouseClick;
+            this.Paint += DrawingPanel_Paint;
         }
     }
 }

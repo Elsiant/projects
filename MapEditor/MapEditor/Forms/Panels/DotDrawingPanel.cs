@@ -27,8 +27,6 @@ namespace MapEditor.Forms.Panels
 
         override protected void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
-            base.DrawingPanel_Paint(sender, e);
-
             Graphics g = e.Graphics;
 
             int gridSize = GRID_GAP * _scale;
@@ -54,6 +52,8 @@ namespace MapEditor.Forms.Panels
                     }
                 }
             }
+
+            base.DrawingPanel_Paint(sender, e);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using MapEditor.Types;
+using Newtonsoft.Json;
 
 namespace MapEditor.Forms.Panels
 {
@@ -21,6 +22,18 @@ namespace MapEditor.Forms.Panels
         public void SetDotColor(Point point, Color color)
         {
             _dotColors[point.X, point.Y] = color;
+
+            this.Refresh();
+        }
+
+        public string SaveData()
+        {
+            return JsonConvert.SerializeObject(_dotColors);
+        }
+
+        public void LoadData(string jsonObject)
+        {
+            _dotColors = JsonConvert.DeserializeObject<Color[,]>(jsonObject);
 
             this.Refresh();
         }

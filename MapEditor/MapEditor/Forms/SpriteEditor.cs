@@ -45,5 +45,18 @@ namespace MapEditor.Forms
 
             _currentColor = e;
         }
+
+        private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+        }
     }
 }

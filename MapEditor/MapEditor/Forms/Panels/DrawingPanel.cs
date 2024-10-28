@@ -9,6 +9,7 @@ namespace MapEditor.Forms.Panels
     {
         public static readonly int GRID_GAP = 32;
         public EventHandler<Point> MouseClicked;
+        
         protected int _scale = 1;
         protected int _width;
         protected int _height;

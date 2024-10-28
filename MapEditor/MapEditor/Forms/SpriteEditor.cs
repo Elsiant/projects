@@ -1,11 +1,15 @@
 ﻿using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using MapEditor.Forms.Panels;
+using Newtonsoft.Json;
 
 namespace MapEditor.Forms
 {
     public partial class SpriteEditor : Form
     {
+        private string _fileName;
         private Color _currentColor = Color.Transparent;
         private DotDrawingPanel _drawingPanel;
 
@@ -18,6 +22,8 @@ namespace MapEditor.Forms
 
         private void InitializeForm()
         {
+            _fileName = "";
+
             // 왼쪽 패널 그리기 화면
             _drawingPanel = new DotDrawingPanel();
             _drawingPanel.MouseClicked += LeftPanel_Clicked;
@@ -48,15 +54,51 @@ namespace MapEditor.Forms
 
         private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            if (_fileName == string.Empty)
+            {
+                var dialog = new SaveFileDialog();
+                dialog.Filter = "txt 파일 (*.txt)|*.txt|모든 파일 (*.*)|*.*";
+
+                if (dialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                _fileName = dialog.FileName;
+            }
+            
+            // txt 파일로 저장
+            File.WriteAllText(_fileName, _drawingPanel.SaveData());
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "txt 파일 (*.txt)|*.txt|모든 파일 (*.*)|*.*";
 
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            _fileName = dialog.FileName;
+
+            File.WriteAllText(_fileName, _drawingPanel.SaveData());
         }
 
         private void loadToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "txt 파일 (*.txt)|*.txt|모든 파일 (*.*)|*.*";
+
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            _fileName = dialog.FileName;
+
+            _drawingPanel.LoadData(File.ReadAllText(_fileName));
         }
     }
 }

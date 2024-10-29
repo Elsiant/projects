@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -57,7 +58,7 @@ namespace MapEditor.Forms
             if (_fileName == string.Empty)
             {
                 var dialog = new SaveFileDialog();
-                dialog.Filter = "txt 파일 (*.txt)|*.txt|모든 파일 (*.*)|*.*";
+                dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";
 
                 if (dialog.ShowDialog() != DialogResult.OK)
                 {
@@ -67,14 +68,16 @@ namespace MapEditor.Forms
                 _fileName = dialog.FileName;
             }
             
-            // txt 파일로 저장
-            File.WriteAllText(_fileName, _drawingPanel.SaveData());
+            // png 파일로 저장
+            var bitmap = _drawingPanel.GetBitmap();
+
+            bitmap.Save(_fileName, ImageFormat.Png);
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             var dialog = new SaveFileDialog();
-            dialog.Filter = "txt 파일 (*.txt)|*.txt|모든 파일 (*.*)|*.*";
+            dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";
 
             if (dialog.ShowDialog() != DialogResult.OK)
             {
@@ -83,13 +86,16 @@ namespace MapEditor.Forms
 
             _fileName = dialog.FileName;
 
-            File.WriteAllText(_fileName, _drawingPanel.SaveData());
+            // png 파일로 저장
+            var bitmap = _drawingPanel.GetBitmap();
+
+            bitmap.Save(_fileName, ImageFormat.Png);
         }
 
         private void loadToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             var dialog = new OpenFileDialog();
-            dialog.Filter = "txt 파일 (*.txt)|*.txt|모든 파일 (*.*)|*.*";
+            dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";
 
             if (dialog.ShowDialog() != DialogResult.OK)
             {
@@ -98,7 +104,8 @@ namespace MapEditor.Forms
 
             _fileName = dialog.FileName;
 
-            _drawingPanel.LoadData(File.ReadAllText(_fileName));
+            var bitmap = new Bitmap(_fileName);
+            _drawingPanel.SetBitmap(bitmap);
         }
     }
 }

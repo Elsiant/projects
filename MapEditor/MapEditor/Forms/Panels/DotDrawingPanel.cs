@@ -26,14 +26,35 @@ namespace MapEditor.Forms.Panels
             this.Refresh();
         }
 
-        public string SaveData()
+        public Bitmap GetBitmap()
         {
-            return JsonConvert.SerializeObject(_dotColors);
+            var bitmap = new Bitmap(Tile.TILE_SIZE, Tile.TILE_SIZE);
+
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    if (_dotColors[x, y] == Color.Empty)
+                    {
+                        continue;
+                    }
+
+                    bitmap.SetPixel(x, y, _dotColors[x, y]);
+                }
+            }
+
+            return bitmap;
         }
 
-        public void LoadData(string jsonObject)
+        public void SetBitmap(Bitmap bitmap)
         {
-            _dotColors = JsonConvert.DeserializeObject<Color[,]>(jsonObject);
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    _dotColors[x, y] = bitmap.GetPixel(x, y);
+                }
+            }
 
             this.Refresh();
         }

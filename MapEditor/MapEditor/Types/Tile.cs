@@ -8,6 +8,9 @@ namespace MapEditor.Types
         public int _x;
         public int _y;
 
+        private string _fileName = string.Empty;
+        private Bitmap _bitmap = null;
+
         public Tile(int x, int y)
         {
             _x = x;

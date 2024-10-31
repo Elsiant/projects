@@ -45,17 +45,27 @@ namespace MapEditor.Forms
 
         private void RightPanel_ColorSelected(object sender, Color e)
         {
-            if (_currentColor == e)
-            {
-                return;
-            }
-
             _currentColor = e;
         }
 
         private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            if (_fileName == string.Empty)
+            fileSave(false);
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            fileSave(true);
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            fileLoad();
+        }
+
+        private void fileSave(bool newName)
+        {
+            if (newName || _fileName == string.Empty)
             {
                 var dialog = new SaveFileDialog();
                 dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";
@@ -67,24 +77,6 @@ namespace MapEditor.Forms
 
                 _fileName = dialog.FileName;
             }
-            
-            // png 파일로 저장
-            var bitmap = _drawingPanel.GetBitmap();
-
-            bitmap.Save(_fileName, ImageFormat.Png);
-        }
-
-        private void saveAsToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            var dialog = new SaveFileDialog();
-            dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";
-
-            if (dialog.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-
-            _fileName = dialog.FileName;
 
             // png 파일로 저장
             var bitmap = _drawingPanel.GetBitmap();
@@ -92,7 +84,7 @@ namespace MapEditor.Forms
             bitmap.Save(_fileName, ImageFormat.Png);
         }
 
-        private void loadToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void fileLoad()
         {
             var dialog = new OpenFileDialog();
             dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";

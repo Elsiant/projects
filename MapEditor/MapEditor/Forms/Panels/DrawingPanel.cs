@@ -47,7 +47,8 @@ namespace MapEditor.Forms.Panels
             }
 
             int gridSize = GRID_GAP * _scale;
-            _mousePoint = new Point(e.X / gridSize, e.Y / gridSize);
+            _mousePoint.X = (e.X - _offset.X) / gridSize;
+            _mousePoint.Y = (e.Y - _offset.Y) / gridSize;
 
             this.Refresh();
         }

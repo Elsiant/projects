@@ -32,9 +32,6 @@ namespace MapEditor.Forms.Panels
 
         private void DrawingPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            _mouseDown = new Point(e.X, e.Y);
-            _lastMousePoint = new Point(e.X, e.Y);
-
             int gridSize = GRID_GAP * _scale;
             MouseClicked.Invoke(this, new Point(e.X / gridSize, e.Y / gridSize));
         }
@@ -122,10 +119,17 @@ namespace MapEditor.Forms.Panels
             
             this.DoubleBuffered = true;
             this.ResizeRedraw = true;
+            this.MouseDown += DrawingPanel_MouseDown;
             this.MouseMove += DrawingPanel_MouseMove;
             this.MouseClick += DrawingPanel_MouseClick;
             this.MouseWheel += DrawingPanel_MouseWheel;
             this.Paint += DrawingPanel_Paint;
+        }
+
+        private void DrawingPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            _mouseDown = e.Location;
+            _lastMousePoint = e.Location;
         }
 
         private void DrawingPanel_MouseWheel(object sender, MouseEventArgs e)

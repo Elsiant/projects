@@ -16,6 +16,7 @@ namespace MapEditor.Forms.Panels
         protected int _scale = 1;
         protected int _width;
         protected int _height;
+        protected Bitmap _bitmap;
 
         protected Point _mousePoint = Point.Empty;
         protected Point _mouseDown = Point.Empty;
@@ -23,7 +24,7 @@ namespace MapEditor.Forms.Panels
         protected Point _lastMousePoint = Point.Empty;
 
         private Matrix _transformMatrix = new Matrix();
-
+        
         public DrawingPanel()
         {
             InitializeDrawingPanel();
@@ -91,7 +92,7 @@ namespace MapEditor.Forms.Panels
             Graphics g = e.Graphics;
             Pen pen = new Pen(Color.LightGray);
 
-            for (int y = 0; y < this.Height; y += gridSize)
+            for (int y = 0; y <= this.Height; y += gridSize)
             {
                 g.DrawLine(pen,
                     0,
@@ -100,7 +101,7 @@ namespace MapEditor.Forms.Panels
                     y);
             }
 
-            for (int x = 0; x < this.Width; x += gridSize)
+            for (int x = 0; x <= this.Width; x += gridSize)
             {
                 g.DrawLine(pen,
                     x,
@@ -123,7 +124,7 @@ namespace MapEditor.Forms.Panels
             this.MouseDown += DrawingPanel_MouseDown;
             this.MouseMove += DrawingPanel_MouseMove;
             this.MouseClick += DrawingPanel_MouseClick;
-            this.MouseWheel += DrawingPanel_MouseWheel;
+            //this.MouseWheel += DrawingPanel_MouseWheel;
             this.Paint += DrawingPanel_Paint;
         }
 

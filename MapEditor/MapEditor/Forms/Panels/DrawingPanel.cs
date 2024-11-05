@@ -30,30 +30,6 @@ namespace MapEditor.Forms.Panels
             InitializeDrawingPanel();
         }
 
-
-        private void DrawingPanel_MouseClick(object sender, MouseEventArgs e)
-        {
-            int gridSize = GRID_GAP * _scale;
-            MouseClicked.Invoke(this, new Point(e.X / gridSize, e.Y / gridSize));
-        }
-
-        private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
-        {
-            // 마우스 드래그 시 팬 이동
-            if (e.Button == MouseButtons.Left)
-            {
-                _offset.X += e.X - _lastMousePoint.X;
-                _offset.Y += e.Y - _lastMousePoint.Y;
-                _lastMousePoint = e.Location;
-            }
-
-            int gridSize = GRID_GAP * _scale;
-            _mousePoint.X = (e.X - _offset.X) / gridSize;
-            _mousePoint.Y = (e.Y - _offset.Y) / gridSize;
-
-            this.Refresh();
-        }
-
         virtual protected void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
             // 변환 매트릭스 생성
@@ -132,6 +108,29 @@ namespace MapEditor.Forms.Panels
         {
             _mouseDown = e.Location;
             _lastMousePoint = e.Location;
+        }
+
+        private void DrawingPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            int gridSize = GRID_GAP * _scale;
+            MouseClicked.Invoke(this, new Point(e.X / gridSize, e.Y / gridSize));
+        }
+
+        private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            // 마우스 드래그 시 팬 이동
+            if (e.Button == MouseButtons.Right)
+            {
+                _offset.X += e.X - _lastMousePoint.X;
+                _offset.Y += e.Y - _lastMousePoint.Y;
+                _lastMousePoint = e.Location;
+            }
+
+            int gridSize = GRID_GAP * _scale;
+            _mousePoint.X = (e.X - _offset.X) / gridSize;
+            _mousePoint.Y = (e.Y - _offset.Y) / gridSize;
+
+            this.Refresh();
         }
 
         private void DrawingPanel_MouseWheel(object sender, MouseEventArgs e)

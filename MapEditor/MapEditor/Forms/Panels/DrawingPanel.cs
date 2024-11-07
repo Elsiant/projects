@@ -11,7 +11,7 @@ namespace MapEditor.Forms.Panels
         public static readonly int GRID_GAP = 32;
         public static readonly int MAX_SCALE = 5;
 
-        public EventHandler<Point> MouseClicked;
+        public EventHandler<Point> MouseLeftClicked;
         
         protected int _scale = 1;
         protected int _width;
@@ -116,8 +116,11 @@ namespace MapEditor.Forms.Panels
 
         private void DrawingPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            int gridSize = GRID_GAP * _scale;
-            MouseClicked.Invoke(this, new Point(e.X / gridSize, e.Y / gridSize));
+            if (e.Button == MouseButtons.Left)
+            {
+                int gridSize = GRID_GAP * _scale;
+                MouseLeftClicked.Invoke(this, _mousePoint);
+            }
         }
 
         private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)

@@ -32,6 +32,13 @@ namespace MapEditor.Forms.Panels
 
         virtual protected void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
+            ChangeTransForm(e);
+            DrawGrid(e);
+            DrawCurrentRect(e);
+        }
+
+        protected void ChangeTransForm(PaintEventArgs e)
+        {
             // 변환 매트릭스 생성
             _transformMatrix = new Matrix();
             _transformMatrix.Translate(_offset.X, _offset.Y); // 팬 오프셋 적용
@@ -39,9 +46,6 @@ namespace MapEditor.Forms.Panels
 
             // 그래픽스에 매트릭스 변환 적용
             e.Graphics.Transform = _transformMatrix;
-
-            DrawGrid(e);
-            DrawCurrentRect(e);
         }
 
         protected void DrawCurrentRect(PaintEventArgs e)

@@ -10,20 +10,24 @@ namespace MapEditor.Forms.Panels
 {
     class MapDrawingPanel : DrawingPanel
     {
-        private int _column = 64;
-        private int _row = 64;
+        private readonly int LAYER_MAX = 5;
+        private int _width = 64;
+        private int _height = 64;
         private int _currentLayer = 0;
 
-        private Tile[,] _tiles;
+        private List<Tile>[] _tileList;
         public MapDrawingPanel()
         {
-            _tiles = new Tile[_column, _row];
-        }
+            _tileList = new List<Tile>[LAYER_MAX];
 
+            for(int i = 0; i < LAYER_MAX; i++)
+            {
+                _tileList[i] = new List<Tile>();
+            }
+        }
+        
         public void SetImage(Point point, string fileName)
         {
-            _tiles[point.X, point.Y] = new Tile(point);
-            //_tiles[point.X, point.Y] = new Tile(_fileName);
         }
 
         //public void MapDrawingPanel_Paint(object sender, PaintEventArgs e)
@@ -45,5 +49,12 @@ namespace MapEditor.Forms.Panels
         {
             _currentLayer = layer;
         }
+
+        private void Resize(int width, int height)
+        {
+            _width = width;
+            _height = height;
+        }
+        
     }
 }

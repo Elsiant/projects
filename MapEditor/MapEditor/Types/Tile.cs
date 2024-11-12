@@ -31,5 +31,10 @@ namespace MapEditor.Types
                 TILE_SIZE,
                 TILE_SIZE);
         }
+
+        public void SetImage(string fileName)
+        {
+            _fileName = fileName;
+        }
     }
 }

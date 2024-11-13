@@ -13,8 +13,8 @@ namespace MapEditor.Forms.Panels
     class MapDrawingPanel : DrawingPanel
     {
         private readonly int LAYER_MAX = 5;
-        private int _width = 64;
-        private int _height = 64;
+        private int _column = 64;
+        private int _row = 64;
         private int _currentLayer = 0;
 
         private List<Tile>[] _tileList;
@@ -67,10 +67,10 @@ namespace MapEditor.Forms.Panels
             _currentLayer = layer;
         }
 
-        private void Resize(int width, int height)
+        private void ChangeMapSize(int column, int row)
         {
-            _width = width;
-            _height = height;
+            _column = column;
+            _row = row;
         }
         
     }

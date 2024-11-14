@@ -1,4 +1,5 @@
 ﻿using MapEditor.Types;
+using MapEditor.Util;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,31 +18,43 @@ namespace MapEditor.Forms.Panels
         private int _row = 64;
         private int _currentLayer = 0;
 
-        private List<Tile>[] _tileList;
+        private Dictionary<string, Tile>[] _tiles;
         public MapDrawingPanel()
         {
-            _tileList = new List<Tile>[LAYER_MAX];
+            _tiles = new Dictionary<string, Tile>[LAYER_MAX];
 
             for(int i = 0; i < LAYER_MAX; i++)
             {
-                _tileList[i] = new List<Tile>();
+                _tiles[i] = new Dictionary<string, Tile>();
             }
         }
         
         public void SetImage(Point point, string fileName)
         {
-            Tile tile = _tileList[_currentLayer].Find(
-                item => item._x == point.X && item._y == point.Y);
+            //Tile tile = _tileList[_currentLayer].Find(
+            //    item => item._x == point.X && item._y == point.Y);
 
-            if (tile == null)
+            //if (tile == null)
+            //{
+            //    Tile newTile = new Tile(point);
+            //    newTile.SetImage(fileName);
+            //    _tileList[_currentLayer].Add(newTile);
+            //}
+            //else
+            //{
+            //    tile.SetImage(fileName);
+            //}
+
+            var hashKey = PointHashGenerator.GenerateHash(point);
+            if(_tiles[_currentLayer].ContainsKey(hashKey))
             {
-                Tile newTile = new Tile(point);
-                newTile.SetImage(fileName);
-                _tileList[_currentLayer].Add(newTile);
+                _tiles[_currentLayer][hashKey].SetImage(fileName);
             }
             else
             {
-                tile.SetImage(fileName);
+                Tile newTile = new Tile(point);
+                newTile.SetImage(fileName);
+                _tiles[_currentLayer].Add(hashKey, newTile);
             }
         }
 
@@ -52,14 +65,14 @@ namespace MapEditor.Forms.Panels
 
         private void SaveData(string filePath)
         {
-            string json = JsonConvert.SerializeObject(_tileList, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(_tiles, Formatting.Indented);
             File.WriteAllText(filePath, json);
         }
 
         private void LoadData(string filePath)
         {
             string json = File.ReadAllText(filePath);
-            _tileList = JsonConvert.DeserializeObject<List<Tile>[]>(json);
+            _tiles = JsonConvert.DeserializeObject<Dictionary<string, Tile>[]>(json);
         }
 
         private void ChangeLayer(int layer)

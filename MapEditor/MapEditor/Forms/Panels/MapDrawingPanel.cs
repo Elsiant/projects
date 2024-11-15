@@ -1,10 +1,8 @@
 ﻿using MapEditor.Types;
 using MapEditor.Util;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,17 +61,16 @@ namespace MapEditor.Forms.Panels
 
         //}
 
-        private void SaveData(string filePath)
+        public Dictionary<string, Tile>[] GetTilesData()
         {
-            string json = JsonConvert.SerializeObject(_tiles, Formatting.Indented);
-            File.WriteAllText(filePath, json);
+            return _tiles;
         }
 
-        private void LoadData(string filePath)
+        public void SetTilesData(Dictionary<string, Tile>[] tiles)
         {
-            string json = File.ReadAllText(filePath);
-            _tiles = JsonConvert.DeserializeObject<Dictionary<string, Tile>[]>(json);
+            _tiles = tiles;
         }
+        
 
         private void ChangeLayer(int layer)
         {

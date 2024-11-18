@@ -13,8 +13,10 @@ namespace MapEditor
 {
     public partial class MainForm : Form
     {
-        private string _fileName;
+        private string _fileName = string.Empty;
+        private string _currentImagePath = string.Empty;
         private MapDrawingPanel _mapDrawingPanel;
+
         public MainForm()
         {
             InitializeComponent();
@@ -39,8 +41,8 @@ namespace MapEditor
 
         private void LeftPanelCliced(object sender, Point e)
         {
-            var drawingPanel = sender as DotDrawingPanel;
-            //drawingPanel.SetBitmap(e, filePath);
+            var drawingPanel = sender as MapDrawingPanel;
+            drawingPanel.SetImage(e, _currentImagePath);
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

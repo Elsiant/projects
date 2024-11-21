@@ -28,7 +28,7 @@ namespace MapEditor
         private void InitializeForm()
         {
             _mapDrawingPanel = new MapDrawingPanel();
-            _mapDrawingPanel.MouseLeftClicked += LeftPanelCliced;
+            _mapDrawingPanel.MouseLeftClicked += LeftPanelClicked;
             _mapDrawingPanel.Dock = DockStyle.Fill;
 
             splitContainer.Panel1.Controls.Add(_mapDrawingPanel);
@@ -46,7 +46,7 @@ namespace MapEditor
             spriteEditor.Show();
         }
 
-        private void LeftPanelCliced(object sender, Point e)
+        private void LeftPanelClicked(object sender, Point e)
         {
             var drawingPanel = sender as MapDrawingPanel;
             drawingPanel.SetImage(e, _currentImagePath);

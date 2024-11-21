@@ -64,6 +64,9 @@
     <Compile Include="Forms\Panels\DrawingPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\Panels\ImageSelector.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\Panels\MapDrawingPanel.cs">
       <SubType>Component</SubType>
     </Compile>

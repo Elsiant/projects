@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MapEditor.Forms.Panels
 {
@@ -17,6 +18,7 @@ namespace MapEditor.Forms.Panels
         private int _currentLayer = 0;
 
         private Dictionary<string, Tile>[] _tiles;
+
         public MapDrawingPanel()
         {
             _tiles = new Dictionary<string, Tile>[LAYER_MAX];
@@ -56,10 +58,43 @@ namespace MapEditor.Forms.Panels
             }
         }
 
-        //public void MapDrawingPanel_Paint(object sender, PaintEventArgs e)
-        //{
+        override protected void DrawingPanel_Paint(object sender, PaintEventArgs e)
+        {
+            base.ChangeTransForm(e);
+            MapPanelDrawGrid(e);
+            base.DrawCurrentRect(e);
+        }
 
-        //}
+        private void MapPanelDrawGrid(PaintEventArgs e)
+        {
+            // 그리드 선 그리기
+            int gridSize = GRID_GAP * _scale;
+            int width = gridSize * _column;
+            int height = gridSize * _row;
+
+            Graphics g = e.Graphics;
+            Pen pen = new Pen(Color.LightGray);
+
+            for (int y = 0; y <= width; y += gridSize)
+            {
+                g.DrawLine(pen,
+                    0,
+                    y,
+                    width,
+                    y);
+            }
+
+            for (int x = 0; x <= height; x += gridSize)
+            {
+                g.DrawLine(pen,
+                    x,
+                    0,
+                    x,
+                    height);
+            }
+
+            pen.Dispose();
+        }
 
         public Dictionary<string, Tile>[] GetTilesData()
         {
@@ -69,6 +104,8 @@ namespace MapEditor.Forms.Panels
         public void SetTilesData(Dictionary<string, Tile>[] tiles)
         {
             _tiles = tiles;
+
+            this.Refresh();
         }
         
 
@@ -81,6 +118,7 @@ namespace MapEditor.Forms.Panels
         {
             _column = column;
             _row = row;
+            this.Refresh();
         }
         
     }

@@ -14,3 +14,11 @@
 - keypoint_matching.py
 - 도트의 값을 비교하는 대신 유사한 Keypoint의 존재 유무로 유사도를 판단
 - 찾는 이미지가 어느정도 회전, 크기 변화해도 찾을 수 있다.
+
+## 실행전 주의 사항
+- 가상 환경 셋팅을 위해선 scripts/init.sh을 bash로 실행 해줘야 합니다.
+
+## 사용 방법
+1. Select Search Image 버튼을 눌러 찾고자 하는 이미지 등록
+2. Select Source Image 버튼을 눌러 탐색할 이미지 등록
+3. Template Matching 혹은 Keypoint Matching 버튼을 눌러 이미지 매칭 테스트

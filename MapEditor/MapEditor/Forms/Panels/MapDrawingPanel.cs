@@ -45,6 +45,7 @@ namespace MapEditor.Forms.Panels
             //    tile.SetImage(fileName);
             //}
 
+            // Point 타입은 키값으로 적절하지 않기 떄문에 고유한 hash 값으로 변환해 키로 사용한다.
             var hashKey = PointHashGenerator.GenerateHash(point);
             if(_tiles[_currentLayer].ContainsKey(hashKey))
             {

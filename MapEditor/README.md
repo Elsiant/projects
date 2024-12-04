@@ -8,3 +8,4 @@ C#, Winform을 사용해 간단한 맵에디터의 기능을 구현
 ## DrawingPanel.cs
 - MapDrawingPanel과 DotDrawingPanel의 부모
 - 그리기 패널의 기본적인 기능 들을 정의(화면 스크롤, 마우스 위치, 더블 버퍼 적용, 그리드 선 그리기)
+- _tiles에 Tile을 저장할 때 Point타입은 키값으로 적절하지 않기 떄문에 Point 좌표 별로 고유한 string을 생성해 키값으로 사용하도록 구현

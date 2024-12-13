@@ -12,7 +12,7 @@ namespace MapEditor.Forms.Panels
 {
     class MapDrawingPanel : DrawingPanel
     {
-        private readonly int LAYER_MAX = 5;
+        private readonly int LAYER_MAX = 3; // 0 바닥, 1 건물, 2 오브젝트
         private int _column = 64;
         private int _row = 64;
         private int _currentLayer = 0;

@@ -1,4 +1,5 @@
-﻿using MapEditor.Types;
+﻿using MapEditor.Data;
+using MapEditor.Types;
 using MapEditor.Util;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,17 @@ namespace MapEditor.Forms.Panels
         private int _currentLayer = 0;
 
         private Dictionary<string, Tile>[] _tiles;
+        private Bitmap[] _mapImages;
 
         public MapDrawingPanel()
         {
             _tiles = new Dictionary<string, Tile>[LAYER_MAX];
+            _mapImages = new Bitmap[LAYER_MAX];
 
             for(int i = 0; i < LAYER_MAX; i++)
             {
                 _tiles[i] = new Dictionary<string, Tile>();
+                _mapImages[i] = new Bitmap(Tile.TILE_SIZE * _column, Tile.TILE_SIZE * _row);
             }
         }
         
@@ -56,6 +60,21 @@ namespace MapEditor.Forms.Panels
                 Tile newTile = new Tile(point);
                 newTile.SetImage(fileName);
                 _tiles[_currentLayer].Add(hashKey, newTile);
+            }
+            
+            // 변경된 Tile에 맞게 _mapImage 수정
+            var image = TileManager.Instance.GetImage(fileName);
+            int x = point.X * Tile.TILE_SIZE;
+            int y = point.Y * Tile.TILE_SIZE;
+
+            for (int i = 0; i < Tile.TILE_SIZE; i++)
+            {
+                for(int j = 0; j < Tile.TILE_SIZE; j++)
+                {
+                    _mapImages[_currentLayer].SetPixel(
+                        x + i, y + j, image.GetPixel(i, j)
+                        );
+                }
             }
         }
 

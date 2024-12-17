@@ -76,10 +76,25 @@ namespace MapEditor.Forms.Panels
                         );
                 }
             }
+
+            this.Refresh();
         }
 
         override protected void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
+            Graphics g = e.Graphics;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+            for (int i = 0; i < LAYER_MAX; i++)
+            {
+                g.DrawImage(_mapImages[i],
+                _offset.X + 0,
+                _offset.Y + 0,
+                Width,
+                Height);
+            }
+
             base.ChangeTransForm(e);
             MapPanelDrawGrid(e);
             base.DrawCurrentRect(e);

@@ -53,31 +53,36 @@ namespace MapEditor.Forms.Panels
             var hashKey = PointHashGenerator.GenerateHash(point);
             if(_tiles[_currentLayer].ContainsKey(hashKey))
             {
-                _tiles[_currentLayer][hashKey].SetImage(fileName);
+                _tiles[_currentLayer][hashKey].SetFileName(fileName);
             }
             else
             {
                 Tile newTile = new Tile(point);
-                newTile.SetImage(fileName);
+                newTile.SetFileName(fileName);
                 _tiles[_currentLayer].Add(hashKey, newTile);
             }
-            
-            // 변경된 Tile에 맞게 _mapImage 수정
+
+            ChangeMapImage(point, fileName);
+
+            this.Refresh();
+        }
+
+        // 변경된 Tile에 맞게 _mapImage 수정
+        public void ChangeMapImage(Point point, string fileName)
+        {
             var image = TileManager.Instance.GetImage(fileName);
             int x = point.X * Tile.TILE_SIZE;
             int y = point.Y * Tile.TILE_SIZE;
 
             for (int i = 0; i < Tile.TILE_SIZE; i++)
             {
-                for(int j = 0; j < Tile.TILE_SIZE; j++)
+                for (int j = 0; j < Tile.TILE_SIZE; j++)
                 {
                     _mapImages[_currentLayer].SetPixel(
                         x + i, y + j, image.GetPixel(i, j)
                         );
                 }
             }
-
-            this.Refresh();
         }
 
         override protected void DrawingPanel_Paint(object sender, PaintEventArgs e)
@@ -139,6 +144,16 @@ namespace MapEditor.Forms.Panels
         public void SetTilesData(Dictionary<string, Tile>[] tiles)
         {
             _tiles = tiles;
+
+            for(int i = 0; i < LAYER_MAX; i++)
+            {
+                _mapImages[i] = new Bitmap(Tile.TILE_SIZE * _column, Tile.TILE_SIZE * _row);
+                foreach (var tileData in _tiles[i])
+                {
+                    var tile = tileData.Value;
+                    ChangeMapImage(tile.GetPoint(), tile.GetFileName());
+                }
+            }
 
             this.Refresh();
         }

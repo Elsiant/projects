@@ -32,9 +32,19 @@ namespace MapEditor.Types
                 TILE_SIZE);
         }
 
-        public void SetImage(string fileName)
+        public void SetFileName(string fileName)
         {
             _fileName = fileName;
+        }
+
+        public string GetFileName()
+        {
+            return _fileName;
+        }
+
+        public Point GetPoint()
+        {
+            return new Point(_x, _y);
         }
     }
 }

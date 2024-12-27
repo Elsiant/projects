@@ -168,6 +168,32 @@ namespace MapEditor.Forms.Panels
         {
             _column = column;
             _row = row;
+
+            for (int i = 0; i < LAYER_MAX; i++)
+            {
+                var newImage = new Bitmap(Tile.TILE_SIZE * _column, Tile.TILE_SIZE * _row);
+
+                for (int x = 0; x < newImage.Width; x++)
+                {
+                    if (x > _mapImages[i].Width)
+                    {
+                        continue;
+                    }
+
+                    for (int y = 0; y < newImage.Height; y++)
+                    {
+                        if (y > _mapImages[i].Height)
+                        {
+                            continue;
+                        }
+
+                        newImage.SetPixel(x, y, _mapImages[i].GetPixel(x, y));
+                    }
+                }
+
+                _mapImages[i] = newImage;
+            }
+
             this.Refresh();
         }
         

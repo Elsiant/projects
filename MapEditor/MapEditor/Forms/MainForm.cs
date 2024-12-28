@@ -34,7 +34,7 @@ namespace MapEditor
             splitContainer.Panel1.Controls.Add(_mapDrawingPanel);
 
             _imageSelectorPanel = new ImageSelector();
-            //_imageSelectorPanel.ImageSelected += RigthPanelClicked;
+            _imageSelectorPanel.ImageSelected += RightPanelClicked;
             _imageSelectorPanel.Dock = DockStyle.Fill;
 
             splitContainer.Panel2.Controls.Add(_imageSelectorPanel);
@@ -50,6 +50,11 @@ namespace MapEditor
         {
             var drawingPanel = sender as MapDrawingPanel;
             drawingPanel.SetImage(e, _currentImagePath);
+        }
+
+        private void RightPanelClicked(object sender, string e)
+        {
+            _currentImagePath = e;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

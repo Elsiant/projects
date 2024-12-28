@@ -70,6 +70,7 @@ namespace MapEditor.Forms.Panels
         // 변경된 Tile에 맞게 _mapImage 수정
         public void ChangeMapImage(Point point, string fileName)
         {
+            TileManager.Instance.LoadImage(fileName, false); // 임시
             var image = TileManager.Instance.GetImage(fileName);
             int x = point.X * Tile.TILE_SIZE;
             int y = point.Y * Tile.TILE_SIZE;

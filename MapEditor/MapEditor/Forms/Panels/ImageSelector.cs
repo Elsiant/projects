@@ -67,6 +67,7 @@ namespace MapEditor.Forms.Panels
                 pictureBox.Tag is string filePath)
             {
                 _filePath = filePath;
+                ImageSelected.Invoke(this, _filePath);
             }
         }
 

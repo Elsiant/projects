@@ -92,13 +92,18 @@ namespace MapEditor.Forms.Panels
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
 
+            int gridSize = GRID_GAP * _scale;
+
+            int mapWidth = _column * gridSize;
+            int mapHeight = _row * gridSize;
+
             for (int i = 0; i < LAYER_MAX; i++)
             {
                 g.DrawImage(_mapImages[i],
                 _offset.X + 0,
                 _offset.Y + 0,
-                Width,
-                Height);
+                mapWidth,
+                mapHeight);
             }
 
             base.ChangeTransForm(e);

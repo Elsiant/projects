@@ -28,7 +28,7 @@ namespace MapEditor
         private void InitializeForm()
         {
             _mapDrawingPanel = new MapDrawingPanel();
-            _mapDrawingPanel.MouseLeftClicked += LeftPanelClicked;
+            _mapDrawingPanel.DrawAtPoint += LeftPanelClicked;
             _mapDrawingPanel.Dock = DockStyle.Fill;
 
             splitContainer.Panel1.Controls.Add(_mapDrawingPanel);

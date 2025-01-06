@@ -11,8 +11,9 @@ namespace MapEditor.Forms.Panels
         public static readonly int GRID_GAP = 32;
         public static readonly int MAX_SCALE = 5;
 
-        public EventHandler<Point> MouseLeftClicked;
-        
+        public EventHandler<Point> DrawAtPoint;
+        public EventHandler<Point> MouseLeftUp;
+
         protected int _scale = 1;
         protected int _width;
         protected int _height;
@@ -103,6 +104,7 @@ namespace MapEditor.Forms.Panels
             this.ResizeRedraw = true;
             this.MouseDown += DrawingPanel_MouseDown;
             this.MouseMove += DrawingPanel_MouseMove;
+            this.MouseUp += DrawingPanel_MouseUp;
             this.MouseClick += DrawingPanel_MouseClick;
             //this.MouseWheel += DrawingPanel_MouseWheel;
             this.Paint += DrawingPanel_Paint;
@@ -114,12 +116,20 @@ namespace MapEditor.Forms.Panels
             _lastMousePoint = e.Location;
         }
 
+        private void DrawingPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MouseLeftUp?.Invoke(this, _mousePoint);
+            }
+        }
+
         private void DrawingPanel_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 int gridSize = GRID_GAP * _scale;
-                MouseLeftClicked.Invoke(this, _mousePoint);
+                DrawAtPoint.Invoke(this, _mousePoint);
             }
         }
 
@@ -132,11 +142,16 @@ namespace MapEditor.Forms.Panels
                 _offset.Y += e.Y - _lastMousePoint.Y;
                 _lastMousePoint = e.Location;
             }
-
+            
             int gridSize = GRID_GAP * _scale;
             _mousePoint.X = (e.X - _offset.X) / gridSize;
             _mousePoint.Y = (e.Y - _offset.Y) / gridSize;
 
+            if (e.Button == MouseButtons.Left)
+            {
+                DrawAtPoint.Invoke(this, _mousePoint);
+            }
+            
             this.Refresh();
         }
 

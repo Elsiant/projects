@@ -27,7 +27,7 @@ namespace MapEditor.Forms
 
             // 왼쪽 패널 그리기 화면
             _drawingPanel = new DotDrawingPanel();
-            _drawingPanel.MouseLeftClicked += LeftPanel_Clicked;
+            _drawingPanel.DrawAtPoint += LeftPanel_Clicked;
             splitContainer.Panel1.Controls.Add(_drawingPanel);
 
             // 오른쪽 패널 색상 선택

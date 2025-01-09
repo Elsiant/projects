@@ -35,20 +35,6 @@ namespace MapEditor.Forms.Panels
         
         public void SetImage(Point point, string fileName)
         {
-            //Tile tile = _tileList[_currentLayer].Find(
-            //    item => item._x == point.X && item._y == point.Y);
-
-            //if (tile == null)
-            //{
-            //    Tile newTile = new Tile(point);
-            //    newTile.SetImage(fileName);
-            //    _tileList[_currentLayer].Add(newTile);
-            //}
-            //else
-            //{
-            //    tile.SetImage(fileName);
-            //}
-
             // Point 타입은 키값으로 적절하지 않기 떄문에 고유한 hash 값으로 변환해 키로 사용한다.
             var hashKey = PointHashGenerator.GenerateHash(point);
             if(_tiles[_currentLayer].ContainsKey(hashKey))
@@ -147,9 +133,22 @@ namespace MapEditor.Forms.Panels
             return _tiles;
         }
 
-        public void SetTilesData(Dictionary<string, Tile>[] tiles)
+        public void SetTilesData(List<string>[] tiles)
         {
-            _tiles = tiles;
+            var newTiles = new Dictionary<string, Tile>[LAYER_MAX];
+            for (int i = 0; i < LAYER_MAX; i++)
+            {
+                newTiles[i] = new Dictionary<string, Tile>();
+                foreach (var tileData in tiles[i])
+                {
+                    Tile newTile = new Tile(tileData);
+                    
+                    var hashKey = PointHashGenerator.GenerateHash(newTile.GetPoint());
+                    newTiles[i].Add(hashKey, newTile);
+                }
+            }
+
+            _tiles = newTiles;
 
             for(int i = 0; i < LAYER_MAX; i++)
             {

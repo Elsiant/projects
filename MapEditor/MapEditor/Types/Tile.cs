@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace MapEditor.Types
 {
@@ -23,6 +24,31 @@ namespace MapEditor.Types
             _y = point.Y;
         }
 
+        public Tile(string data)
+        {
+            var datas = data.Split(',');
+
+            if(datas.Length != 3)
+            {
+                Console.WriteLine($"Error Invalid data : {data}");
+                return;
+            }
+
+            if(Int32.TryParse(datas[0], out _x) == false)
+            {
+                Console.WriteLine($"Error Invalid data _x : {data[0]}");
+                return;
+            }
+
+            if (Int32.TryParse(datas[1], out _y) == false)
+            {
+                Console.WriteLine($"Error Invalid data _y : {data[1]}");
+                return;
+            }
+
+            _fileName = datas[2];
+        }
+
         public Rectangle GetRect()
         {
             return new Rectangle(
@@ -45,6 +71,11 @@ namespace MapEditor.Types
         public Point GetPoint()
         {
             return new Point(_x, _y);
+        }
+
+        public string GetData()
+        {
+            return $"{_x},{_y},{_fileName}";
         }
     }
 }

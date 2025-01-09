@@ -77,7 +77,7 @@ namespace MapEditor
             if (newName || _fileName == string.Empty)
             {
                 var dialog = new SaveFileDialog();
-                dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";
+                dialog.Filter = "json 파일 (*.json)|*.json|모든 파일 (*.*)|*.*";
 
                 if (dialog.ShowDialog() != DialogResult.OK)
                 {
@@ -88,14 +88,25 @@ namespace MapEditor
             }
 
             var tiles = _mapDrawingPanel.GetTilesData();
-            string json = JsonConvert.SerializeObject(tiles, Formatting.Indented);
+            List<string>[] saveData = new List<string>[tiles.Length];
+
+            for(int i = 0; i < tiles.Length; i++)
+            {
+                saveData[i] = new List<string>();
+                foreach (var tile in tiles[i])
+                {
+                    saveData[i].Add(tile.Value.GetData());
+                }
+            }
+
+            string json = JsonConvert.SerializeObject(saveData, Formatting.Indented);
             File.WriteAllText(_fileName, json);
         }
 
         private void LoadData()
         {
             var dialog = new OpenFileDialog();
-            dialog.Filter = "png 파일 (*.png)|*.png|모든 파일 (*.*)|*.*";
+            dialog.Filter = "json 파일 (*.json)|*.json|모든 파일 (*.*)|*.*";
 
             if (dialog.ShowDialog() != DialogResult.OK)
             {
@@ -105,7 +116,7 @@ namespace MapEditor
             _fileName = dialog.FileName;
 
             string json = File.ReadAllText(_fileName);
-            var tiles = JsonConvert.DeserializeObject<Dictionary<string, Tile>[]>(json);
+            List<string>[] tiles = JsonConvert.DeserializeObject<List<string>[]>(json);
             _mapDrawingPanel.SetTilesData(tiles);
         }
     }

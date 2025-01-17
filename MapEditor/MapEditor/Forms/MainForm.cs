@@ -48,6 +48,11 @@ namespace MapEditor
 
         private void LeftPanelClicked(object sender, Point e)
         {
+            if (string.IsNullOrEmpty(_currentImagePath))
+            {
+                return;
+            }
+
             var drawingPanel = sender as MapDrawingPanel;
             drawingPanel.SetImage(e, _currentImagePath);
         }

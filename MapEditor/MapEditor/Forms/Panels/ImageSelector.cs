@@ -22,7 +22,7 @@ namespace MapEditor.Forms.Panels
         {
             if (!Directory.Exists(folderPath))
             {
-                MessageBox.Show($"폴더가 존재하지 않습니다: {folderPath}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Directory.CreateDirectory(folderPath);
                 return;
             }
             

@@ -8,13 +8,16 @@ namespace MapEditor.Forms.Panels
     class ImageSelector : Panel
     {
         public event EventHandler<string> ImageSelected;
+        private FileSystemWatcher fileWatcher;
 
+        private readonly string FOLDER_PATH = @"Tiles";
         private string _filePath;
         private FlowLayoutPanel _flowLayoutPanel;
 
         public ImageSelector()
         {
             InitializePanel();
+            InitializeFIleWatcher();
             LoadThumnails(@"Tiles");
         }
 
@@ -59,6 +62,27 @@ namespace MapEditor.Forms.Panels
                 AutoScroll = true,
             };
             this.Controls.Add(_flowLayoutPanel);
+        }
+
+        private void InitializeFIleWatcher()
+        {
+            fileWatcher = new FileSystemWatcher
+            {
+                Path = FOLDER_PATH,
+                Filter = "*.png",
+                NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite
+            };
+
+            fileWatcher.Created += OnFileChanged;
+            fileWatcher.Deleted += OnFileChanged;
+            fileWatcher.Renamed += OnFileChanged;
+
+            fileWatcher.EnableRaisingEvents = true;
+        }
+
+        private void OnFileChanged(object sender, FileSystemEventArgs e)
+        {
+            Invoke(new Action(() => LoadThumnails(FOLDER_PATH)));
         }
 
         private void PictureBox_Click(object sender, EventArgs e)

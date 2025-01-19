@@ -27,6 +27,12 @@ namespace MapEditor
 
         private void InitializeForm()
         {
+            layerComboBox.Items.Add("배경");
+            layerComboBox.Items.Add("건물");
+            layerComboBox.Items.Add("오브젝트");
+            layerComboBox.SelectedIndex = 0;
+            layerComboBox.SelectedIndexChanged += LayerComboBox_SelectedIndexChanged;
+
             _mapDrawingPanel = new MapDrawingPanel();
             _mapDrawingPanel.DrawAtPoint += LeftPanelClicked;
             _mapDrawingPanel.Dock = DockStyle.Fill;
@@ -38,6 +44,17 @@ namespace MapEditor
             _imageSelectorPanel.Dock = DockStyle.Fill;
 
             splitContainer.Panel2.Controls.Add(_imageSelectorPanel);
+        }
+
+        private void LayerComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            if (comboBox == null)
+            {
+                return;
+            }
+
+            _mapDrawingPanel.ChangeLayer(comboBox.SelectedIndex);
         }
 
         private void spriteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,3 +143,4 @@ namespace MapEditor
         }
     }
 }
+

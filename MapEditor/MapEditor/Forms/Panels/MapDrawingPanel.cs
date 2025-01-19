@@ -13,7 +13,7 @@ namespace MapEditor.Forms.Panels
 {
     class MapDrawingPanel : DrawingPanel
     {
-        private readonly int LAYER_MAX = 3; // 0 바닥, 1 건물, 2 오브젝트
+        public static readonly int LAYER_MAX = 3; // 0 배경, 1 건물, 2 오브젝트
         private int _column = 64;
         private int _row = 64;
         private int _currentLayer = 0;
@@ -164,7 +164,7 @@ namespace MapEditor.Forms.Panels
         }
         
 
-        private void ChangeLayer(int layer)
+        public void ChangeLayer(int layer)
         {
             _currentLayer = layer;
         }

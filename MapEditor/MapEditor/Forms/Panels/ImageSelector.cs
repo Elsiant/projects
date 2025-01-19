@@ -18,7 +18,7 @@ namespace MapEditor.Forms.Panels
         {
             InitializePanel();
             InitializeFIleWatcher();
-            LoadThumnails(@"Tiles");
+            LoadThumnails(FOLDER_PATH);
         }
 
         public void LoadThumnails(string folderPath)

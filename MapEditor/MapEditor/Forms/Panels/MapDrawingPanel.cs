@@ -17,6 +17,7 @@ namespace MapEditor.Forms.Panels
         private int _column = 64;
         private int _row = 64;
         private int _currentLayer = 0;
+        private bool _viewOnlyCurrent = false;
 
         private Dictionary<string, Tile>[] _tiles;
         private Bitmap[] _mapImages;
@@ -167,6 +168,11 @@ namespace MapEditor.Forms.Panels
         public void ChangeLayer(int layer)
         {
             _currentLayer = layer;
+        }
+
+        public void ViewOnlyCurrentLayer(bool onlyCurrent)
+        {
+            _viewOnlyCurrent = onlyCurrent;
         }
 
         private void ChangeMapSize(int column, int row)

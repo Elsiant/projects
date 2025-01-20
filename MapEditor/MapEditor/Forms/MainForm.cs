@@ -141,6 +141,20 @@ namespace MapEditor
             List<string>[] tiles = JsonConvert.DeserializeObject<List<string>[]>(json);
             _mapDrawingPanel.SetTilesData(tiles);
         }
+
+        private void viewOnlyCurrentLayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem is null)
+            {
+                return;
+            }
+
+            menuItem.Checked = !menuItem.Checked;
+
+            _mapDrawingPanel.ViewOnlyCurrentLayer(menuItem.Checked);
+        }
     }
 }
 

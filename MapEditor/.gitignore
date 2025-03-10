@@ -1,9 +1,1 @@
-﻿.vs
-
-# 빌드
-bin/
-obj/
-*.exe
-*.dll
-*.pdb
-*.log
+﻿

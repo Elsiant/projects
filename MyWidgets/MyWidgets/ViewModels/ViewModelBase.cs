@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace WpfExample.ViewModels
+namespace MyWidgets.ViewModels
 {   
     public class ViewModelBase : INotifyPropertyChanged
     {

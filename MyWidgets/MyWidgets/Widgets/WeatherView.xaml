@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="MyWidgets.Widgets.WeatherView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:MyWidgets.Widgets"
+             mc:Ignorable="d" 
+             xmlns:viewModels="clr-namespace:MyWidgets.ViewModels"
+             Width="240" Height="130"
+             d:DataContext="{d:DesignInstance Type=viewModels:WeatherViewModel, IsDesignTimeCreatable=True}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded" >
+            <i:InvokeCommandAction Command="{Binding CommandLoad}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Border CornerRadius="10" BorderThickness="1" BorderBrush="Gray" Padding="10" Background="#222831">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 도시 이름 -->
+            <TextBlock Text="{Binding CityName}" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Foreground="White"
+                       HorizontalAlignment="Center"/>
+
+            <!-- 날씨 정보 -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <!-- 날씨 아이콘 -->
+                <Image Source="{Binding Icon}" d:Source="/Resources/icon_x.png" Width="50" Height="50" Margin="5" />
+
+                <!-- 날씨 텍스트 정보 -->
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Temperature, StringFormat='{}{0}°C'}" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding Description}" 
+                               FontSize="14" 
+                               Foreground="LightGray"/>
+                    <TextBlock Text="{Binding Humidity, StringFormat='Humidity: {0}%'}" 
+                               FontSize="12" 
+                               Foreground="LightGray"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

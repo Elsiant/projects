@@ -11,6 +11,9 @@
   <ItemGroup>
     <None Remove="Resources\icon_cloud.png" />
     <None Remove="Resources\icon_cloudy.png" />
+    <None Remove="Resources\icon_heavy_rain.png" />
+    <None Remove="Resources\icon_rain.png" />
+    <None Remove="Resources\icon_sand.png" />
     <None Remove="Resources\icon_snowy.png" />
     <None Remove="Resources\icon_sun.png" />
     <None Remove="Resources\icon_x.png" />
@@ -27,6 +30,9 @@
   <ItemGroup>
     <Resource Include="Resources\icon_cloud.png" />
     <Resource Include="Resources\icon_cloudy.png" />
+    <Resource Include="Resources\icon_heavy_rain.png" />
+    <Resource Include="Resources\icon_rain.png" />
+    <Resource Include="Resources\icon_sand.png" />
     <Resource Include="Resources\icon_snowy.png" />
     <Resource Include="Resources\icon_sun.png" />
     <Resource Include="Resources\icon_x.png" />

@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using MyWidgets.Commands;
 using MyWidgets.Models;
+using Newtonsoft.Json.Linq;
 
 namespace MyWidgets.ViewModels
 {
     class WeatherViewModel : ViewModelBase
     {
-        private WeatherModel _model = new WeatherModel();
+        private static readonly string API_KEY = "b043c91ecaf24a3abbcdeacddab91d7e";    // API Key 추후 이동
+        private readonly DispatcherTimer _timer = new DispatcherTimer();
+        private WeatherModel _model = new WeatherModel();        
 
 
         #region ViewModel 정의
@@ -80,22 +85,45 @@ namespace MyWidgets.ViewModels
 
         public void Onload(object parameter)
         {
-            //임시 코드
-            CityName = "Seoul";
-            Description = "맑음";
-            Temperature = "25";
-            Humidity = "50";
-            WeatherType = "맑음";
-            Icon = "/Resources/icon_cloudy.png";
+            GetWeatherInfo();
         }
         #endregion
 
         public WeatherViewModel()
         {
+            //임시 코드
+            CityName = "Seoul";
+
+            // Command 초기화
             CommandLoad = new RelayCommand(Onload);
+
+
+            // Timer 초기화
+            _timer.Interval = TimeSpan.FromMinutes(10);
+            _timer.Tick += async (s, e) => await GetWeatherInfo();
+            _timer.Start();
         }
-        public void OnUpdate()
+
+        public async Task GetWeatherInfo()
         {
+            // OpenWeatherMap API 호출
+            // https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=b043c91ecaf24a3abbcdeacddab91d7e
+
+            string url = $"https://api.openweathermap.org/data/2.5/weather?q={CityName}&appid={API_KEY}&units=metric";
+            using HttpClient client = new HttpClient();
+            string response = await client.GetStringAsync(url);
+
+            JObject weatherData = JObject.Parse(response);
+            Description = weatherData["weather"][0]["description"].ToString();
+            Temperature = weatherData["main"]["temp"].ToString();
+            Humidity = weatherData["main"]["humidity"].ToString();
+            WeatherType = weatherData["weather"][0]["main"].ToString();
+            Icon = $"/Resources/icon_{WeatherType}.png";
+        }
+
+        public void Dispose()
+        {
+            _timer.Stop();
         }
     }
 }

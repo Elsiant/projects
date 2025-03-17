@@ -35,6 +35,7 @@
     <Resource Include="Resources\icon_rain.png" />
     <Resource Include="Resources\icon_sand.png" />
     <Resource Include="Resources\icon_snowy.png" />
+    <Resource Include="Resources\icon_clear.png" />
     <Resource Include="Resources\icon_sun.png" />
     <Resource Include="Resources\icon_x.png" />
   </ItemGroup>

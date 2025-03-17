@@ -9,12 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\icon_cloudy.png" />
-    <None Remove="Resources\icon_heavy_rain.png" />
+    <None Remove="Resources\icon_ash.png" />
+    <None Remove="Resources\icon_drizzle.png" />
+    <None Remove="Resources\icon_fog.png" />
     <None Remove="Resources\icon_rain.png" />
     <None Remove="Resources\icon_sand.png" />
-    <None Remove="Resources\icon_snowy.png" />
-    <None Remove="Resources\icon_sun.png" />
+    <None Remove="Resources\icon_smoke.png" />
+    <None Remove="Resources\icon_squall.png" />
+    <None Remove="Resources\icon_thunderstorm.png" />
+    <None Remove="Resources\icon_tornado.png" />
     <None Remove="Resources\icon_x.png" />
   </ItemGroup>
 
@@ -29,14 +32,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\icon_ash.png" />
     <Resource Include="Resources\icon_clouds.png" />
-    <Resource Include="Resources\icon_cloudy.png" />
-    <Resource Include="Resources\icon_heavy_rain.png" />
+    <Resource Include="Resources\icon_drizzle.png" />
+    <Resource Include="Resources\icon_haze.png" />
+    <Resource Include="Resources\icon_mist.png" />
+    <Resource Include="Resources\icon_fog.png" />
     <Resource Include="Resources\icon_rain.png" />
+    <Resource Include="Resources\icon_dust.png" />
     <Resource Include="Resources\icon_sand.png" />
-    <Resource Include="Resources\icon_snowy.png" />
+    <Resource Include="Resources\icon_smoke.png" />
+    <Resource Include="Resources\icon_snow.png" />
     <Resource Include="Resources\icon_clear.png" />
-    <Resource Include="Resources\icon_sun.png" />
+    <Resource Include="Resources\icon_squall.png" />
+    <Resource Include="Resources\icon_thunderstorm.png" />
+    <Resource Include="Resources\icon_tornado.png" />
     <Resource Include="Resources\icon_x.png" />
   </ItemGroup>
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MyWidgets.Commands;
@@ -135,6 +136,23 @@ namespace MyWidgets.ViewModels
             Humidity = weatherData["main"]["humidity"].ToString();
             WeatherType = weatherData["weather"][0]["main"].ToString();
             Icon = $"/Resources/icon_{WeatherType}.png".ToLower();
+
+            // Icon이 존재하지 않을 경우x 아이콘으로 대체
+            var resource = new Uri(Icon, UriKind.Relative);
+            try
+            {
+                var stream = Application.GetResourceStream(resource);
+                if (stream != null)
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Icon = "/Resources/icon_x.png";
         }
 
         public void Dispose()

@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MyWidgets.Commands;
+using MyWidgets.Common;
 using MyWidgets.Models;
 using Newtonsoft.Json.Linq;
 
 namespace MyWidgets.ViewModels
 {
-    class WeatherViewModel : ViewModelBase
+    public class WeatherViewModel : ViewModelBase
     {
         private static readonly string API_KEY = "b043c91ecaf24a3abbcdeacddab91d7e";    // API Key 추후 이동
+
         private readonly DispatcherTimer _timer = new DispatcherTimer();
+
+        private readonly HttpClientService _httpClientService;
         private WeatherModel _model = new WeatherModel();        
 
 
@@ -89,7 +93,7 @@ namespace MyWidgets.ViewModels
         }
         #endregion
 
-        public WeatherViewModel()
+        public WeatherViewModel(HttpClientService httpClientService)
         {
             //임시 코드
             CityName = "Seoul";
@@ -102,6 +106,9 @@ namespace MyWidgets.ViewModels
             _timer.Interval = TimeSpan.FromMinutes(10);
             _timer.Tick += async (s, e) => await GetWeatherInfo();
             _timer.Start();
+
+            // HttpClientService 초기화
+            _httpClientService = httpClientService;
         }
 
         public async Task GetWeatherInfo()
@@ -110,8 +117,17 @@ namespace MyWidgets.ViewModels
             // https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=b043c91ecaf24a3abbcdeacddab91d7e
 
             string url = $"https://api.openweathermap.org/data/2.5/weather?q={CityName}&appid={API_KEY}&units=metric";
-            using HttpClient client = new HttpClient();
-            string response = await client.GetStringAsync(url);
+
+            string response = string.Empty;
+            try
+            {
+                response = await _httpClientService.GetAsync(url);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
 
             JObject weatherData = JObject.Parse(response);
             Description = weatherData["weather"][0]["description"].ToString();

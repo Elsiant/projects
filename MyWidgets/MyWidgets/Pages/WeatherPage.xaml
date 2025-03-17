@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="MyWidgets.Widgets.WeatherView"
+﻿<Page x:Class="MyWidgets.Pages.WeatherPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:local="clr-namespace:MyWidgets.Widgets"
+             xmlns:local="clr-namespace:MyWidgets.Pages"
              mc:Ignorable="d" 
              xmlns:viewModels="clr-namespace:MyWidgets.ViewModels"
              Width="240" Height="130"
@@ -51,4 +51,4 @@
             </StackPanel>
         </Grid>
     </Border>
-</UserControl>
+</Page>

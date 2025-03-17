@@ -1,18 +1,17 @@
 ﻿using System.Windows.Controls;
 using MyWidgets.ViewModels;
 
-namespace MyWidgets.Widgets
+namespace MyWidgets.Pages
 {
     /// <summary>
     /// WeatherView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class WeatherView : UserControl
+    public partial class WeatherPage : Page
     {
-        private WeatherViewModel _viewModels = new WeatherViewModel();
-        public WeatherView()
+        public WeatherPage(WeatherViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = _viewModels;
+            DataContext = viewModel;
         }
     }
 }

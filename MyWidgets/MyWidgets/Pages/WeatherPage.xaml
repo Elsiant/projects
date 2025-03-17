@@ -33,7 +33,7 @@
             <!-- 날씨 정보 -->
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                 <!-- 날씨 아이콘 -->
-                <Image Source="{Binding Icon}" d:Source="/Resources/icon_x.png" Width="50" Height="50" Margin="5" />
+                <Image Source="{Binding Icon}" d:Source="/Resources/icon_clear.png" Width="50" Height="50" Margin="5" />
 
                 <!-- 날씨 텍스트 정보 -->
                 <StackPanel Orientation="Vertical">

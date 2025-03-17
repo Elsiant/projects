@@ -94,6 +94,16 @@ namespace MyWidgets.ViewModels
         }
         #endregion
 
+        public WeatherViewModel()
+        {
+            // 디자이너용 생성자
+            CityName = "Seoul";
+            Description = "Clear";
+            Temperature = "25";
+            Humidity = "50";
+            WeatherType = "Clear";
+            Icon = $"/Resources/icon_{WeatherType}.png".ToLower();
+        }
         public WeatherViewModel(HttpClientService httpClientService)
         {
             //임시 코드

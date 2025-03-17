@@ -134,7 +134,7 @@ namespace MyWidgets.ViewModels
             Temperature = weatherData["main"]["temp"].ToString();
             Humidity = weatherData["main"]["humidity"].ToString();
             WeatherType = weatherData["weather"][0]["main"].ToString();
-            Icon = $"/Resources/icon_{WeatherType}.png";
+            Icon = $"/Resources/icon_{WeatherType}.png".ToLower();
         }
 
         public void Dispose()

@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\icon_cloud.png" />
     <None Remove="Resources\icon_cloudy.png" />
     <None Remove="Resources\icon_heavy_rain.png" />
     <None Remove="Resources\icon_rain.png" />
@@ -30,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\icon_cloud.png" />
+    <Resource Include="Resources\icon_clouds.png" />
     <Resource Include="Resources\icon_cloudy.png" />
     <Resource Include="Resources\icon_heavy_rain.png" />
     <Resource Include="Resources\icon_rain.png" />

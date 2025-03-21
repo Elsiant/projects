@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using Microsoft.Extensions.Http;
 using Microsoft.Extensions.DependencyInjection;
 using MyWidgets.Common;
 using MyWidgets.ViewModels;
@@ -28,7 +29,7 @@ public partial class App : Application
     {
         // Services
         services.AddSingleton<INavigationService, NavigationService>();
-        services.AddSingleton<HttpClientService>();
+        services.AddHttpClient<HttpClientService>();
 
         // Main Window
         services.AddSingleton<MainWindow>();

@@ -9,11 +9,12 @@ namespace MyWidgets.Common
 {
     public class HttpClientService
     {
-        private static readonly HttpClient _client = new HttpClient();
+        private readonly HttpClient _client;
 
-        public HttpClientService() { }
-
-        public static HttpClient Instance => _client;
+        public HttpClientService(HttpClient client) 
+        {
+            _client = client;
+        }
 
         public async Task<string> GetAsync(string url)
         {

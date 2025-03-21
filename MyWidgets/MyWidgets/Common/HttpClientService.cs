@@ -6,18 +6,20 @@ namespace MyWidgets.Common
 {
     public class HttpClientService
     {
-        private readonly HttpClient _client;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public HttpClientService(HttpClient client) 
+        public HttpClientService(IHttpClientFactory httpClientFactory) 
         {
-            _client = client;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<string> GetAsync(string url)
         {
+            var client = _httpClientFactory.CreateClient(); // 새로운 HttpClient 인스턴스 생성
+
             try
             {
-                return await _client.GetStringAsync(url);
+                return await client.GetStringAsync(url);
             }
             catch (Exception ex)
             {

@@ -1,7 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
-using Microsoft.Extensions.Http;
+﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using MyWidgets.Common;
 using MyWidgets.ViewModels;
@@ -29,7 +26,8 @@ public partial class App : Application
     {
         // Services
         services.AddSingleton<INavigationService, NavigationService>();
-        services.AddHttpClient<HttpClientService>();
+        services.AddHttpClient();   // IHttpClientFactory 등록됨
+        services.AddTransient<HttpClientService>(); // IHttpClientFactory를 주입받기 떄문에 Transient로 등록
 
         // Main Window
         services.AddSingleton<MainWindow>();

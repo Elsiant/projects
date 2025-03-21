@@ -129,14 +129,9 @@ namespace MyWidgets.ViewModels
 
             string url = $"https://api.openweathermap.org/data/2.5/weather?q={CityName}&appid={API_KEY}&units=metric";
 
-            string response = string.Empty;
-            try
+            string response = await _httpClientService.GetAsync(url);
+            if (response == string.Empty)
             {
-                response = await _httpClientService.GetAsync(url);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
                 return;
             }
 

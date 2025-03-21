@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyWidgets.Common
@@ -18,7 +15,15 @@ namespace MyWidgets.Common
 
         public async Task<string> GetAsync(string url)
         {
-            return await _client.GetStringAsync(url);
+            try
+            {
+                return await _client.GetStringAsync(url);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"HttpRequestException: {ex.Message}");
+                return string.Empty;
+            }
         }
     }
 }
